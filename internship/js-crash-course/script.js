@@ -3,8 +3,6 @@ let name = "Jamal";
 const age = 21;
 var university = "SSUET";
 
-name = "Nadeem";
-
 // DATA TYPES
 let isStudent = true;           // boolean
 let marks = 85.5;               // number
@@ -86,7 +84,6 @@ const isEven = (num) => {
 console.log("Is 10 even?", isEven(10));
 console.log("Is 5 even?", isEven(5));
 
-
 function getGrade(score) {
     if (score >= 90) {
         return "A";
@@ -99,6 +96,9 @@ function getGrade(score) {
     }
 }
 
+console.log(getGrade(85));
+console.log(getGrade(95));
+
 function canVote(age) {
     if (age >= 18) {
         return true;
@@ -106,3 +106,30 @@ function canVote(age) {
         return false;
     }
 }
+
+console.log("Can 20-year-old vote?", canVote(20));
+console.log("Can 16-year-old vote?", canVote(16));
+
+// ARRAYS
+let fruits = ["apple", "banana", "orange"];
+console.log("First fruit:", fruits[0]);
+console.log(fruits.length);
+
+// MODIFYING ARRAYS
+fruits.push("grapes");
+fruits.unshift("mango");
+fruits.pop();
+console.log(fruits);
+
+// LOOPING THROUGH ARRAYS
+for (let i = 0; i < fruits.length; i++) {
+    console.log("Fruit" + (i + 1) + ":", fruits[i]);
+}
+
+fruits.forEach((fruits, index) => {
+    console.log(`Index ${index}: ${fruits}`);
+});
+
+const upperFruits = fruits.map(fruits => fruits.toUpperCase());
+console.log("Uppercase fruits:", upperFruits);
+
