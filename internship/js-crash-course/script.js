@@ -133,3 +133,78 @@ fruits.forEach((fruits, index) => {
 const upperFruits = fruits.map(fruits => fruits.toUpperCase());
 console.log("Uppercase fruits:", upperFruits);
 
+// OBJECT BASICS
+const student = {
+    name: "Jamal Nadeem",
+    age: 21,
+    isEnrolled: true,
+    subjects: ["JavaScript", "React", "Next.js"]
+};
+
+console.log("Name:", student.name);
+console.log("Age:", student["age"]);
+console.log("First Subject:", student.subjects[0]);
+
+student.city = "Karachi";
+
+// NESTED OBJECT
+const course = {
+    title: "Web Dev Bootcamp",
+    duration: "6 weeks",
+    instructor: {
+        name: "Nexium",
+        experience: "5 months"
+    }
+};
+
+console.log("Instructor Name:", course.instructor.name);
+
+for (let key in student) {
+    console.log(`${key}: ${student[key]}`);
+}
+
+const book = {
+    title: "JavaScript Basics",
+    author: "John Doe",
+    pages: 300,
+    genre: ["Programming", "Web Development"],
+    publisher: {
+        name: "Tech Books Publishing",
+        year: 2023
+    }
+};
+
+for (let key in book) {
+    if (key !== "publisher") {
+        console.log(`${key}: ${book[key]}`);
+    }
+}
+
+console.log("Publisher Name:", book.publisher.name);
+console.log("Publishing Year:", book.publisher.year);
+
+const car = {
+  brand: "Toyota",
+  model: "Corolla",
+  year: 2022
+};
+
+console.log(car["brand"]);
+
+const user = {
+  name: "Ali",
+  skills: ["HTML", "CSS", "JavaScript"]
+};
+
+console.log(user.skills[1]);
+
+const laptop = {
+    brand: "Hewlett-Packard",
+    price: "$1200",
+    specs: {
+        ram: "16GB",
+        cpu: "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz   1.80 GHz",
+    }
+};
+
+console.log("CPU:", laptop.specs.cpu);
