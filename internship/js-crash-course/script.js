@@ -210,28 +210,55 @@ const laptop = {
 console.log("CPU:", laptop.specs.cpu);
 
 // DOM ACCESS
-const heading = document.getElementById("main-heading");
-console.log(heading.innerText);
+//const heading = document.getElementById("main-heading");
+//console.log(heading.innerText);
 
 // EVENT LISTENER
-const greetBtn = document.getElementById("greetBtn");
-const nameInput = document.getElementById("nameInput");
-const output = document.getElementById("output");
+//const greetBtn = document.getElementById("greetBtn");
+//const nameInput = document.getElementById("nameInput");
+//const output = document.getElementById("output");
 
-greetBtn.addEventListener("click", () => {
-    const name = nameInput.value;
-    output.innerText = `Welcome, ${name}!`;
+//greetBtn.addEventListener("click", () => {
+//    const name = nameInput.value;
+//    output.innerText = `Welcome, ${name}!`;
+//});
+
+const addBtn = document.getElementById("addBtn");
+const todoInput = document.getElementById("todoInput");
+const todoList = document.getElementById("todoList");
+const deleteBtn = document.getElementById("deleteBtn");
+
+let tasks = [];
+
+addBtn.addEventListener("click", () => {
+    const task = todoInput.value.trim();
+    if (task === "") return;
+    
+    tasks.push(task);
+    todoInput.value = "";
+    renderTasks();
 });
 
-const checkBtn = document.getElementById("checkBtn");
-const ageInput = document.getElementById("ageInput");
-const ageResult = document.getElementById("ageResult");
+function renderTasks() {
+    todoList.innerHTML = "";
+    
+    tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.innerText = task;
+        
+        const deleteBtn = document.createElement("deleteBtn");
+        deleteBtn.innerText = "❌";
+        deleteBtn.onclick = () => {
+            tasks.splice(index, 1);
+            renderTasks();
+        };
 
-checkBtn.addEventListener("click", () => {
-    const age = parseInt(ageInput.value);
-    if (age >= 18) {
-        ageResult.innerText = "You are eligible to vote.";
-    } else {
-        ageResult.innerText = "You are not eligible to vote.";
-    }
+        li.appendChild(deleteBtn);
+        todoList.appendChild(li);
+    });
+}
+
+deleteBtn.addEventListener("click", () => {
+  tasks = [];
+  renderTasks();
 });
