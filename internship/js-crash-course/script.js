@@ -228,7 +228,15 @@ const todoInput = document.getElementById("todoInput");
 const todoList = document.getElementById("todoList");
 const deleteBtn = document.getElementById("deleteBtn");
 
-let tasks = [];
+let tasks = [
+    "✅ Complete JavaScript Crash Course",
+  "✅ Build DOM-based Todo App",
+  "🕓 Prepare for React Crash Course",
+  "📌 Day 7 Assignment: Quote Generator in Mind",
+  "💻 Internship Progress: Nexium Web Dev"
+];
+
+renderTasks();
 
 addBtn.addEventListener("click", () => {
     const task = todoInput.value.trim();
