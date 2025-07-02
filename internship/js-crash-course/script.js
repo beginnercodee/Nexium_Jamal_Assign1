@@ -208,3 +208,30 @@ const laptop = {
 };
 
 console.log("CPU:", laptop.specs.cpu);
+
+// DOM ACCESS
+const heading = document.getElementById("main-heading");
+console.log(heading.innerText);
+
+// EVENT LISTENER
+const greetBtn = document.getElementById("greetBtn");
+const nameInput = document.getElementById("nameInput");
+const output = document.getElementById("output");
+
+greetBtn.addEventListener("click", () => {
+    const name = nameInput.value;
+    output.innerText = `Welcome, ${name}!`;
+});
+
+const checkBtn = document.getElementById("checkBtn");
+const ageInput = document.getElementById("ageInput");
+const ageResult = document.getElementById("ageResult");
+
+checkBtn.addEventListener("click", () => {
+    const age = parseInt(ageInput.value);
+    if (age >= 18) {
+        ageResult.innerText = "You are eligible to vote.";
+    } else {
+        ageResult.innerText = "You are not eligible to vote.";
+    }
+});
