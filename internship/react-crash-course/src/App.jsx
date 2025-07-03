@@ -1,27 +1,25 @@
-import { useState } from "react";
+import TaskCard from "./TaskCard";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  function increase() {
-    setCount(count + 1);
-  }
-
-  function decrease() {
-    setCount(count - 1);
-  }
-
-  function reset() {
-    setCount(0);
-  }
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Counter App</h1>
-      <h2>{count}</h2>
-      <button onClick={increase}>➕ Increase</button>
-      <button onClick={decrease} style={{margin: "0 10px"}}>➖ Decrease</button>
-      <button onClick={reset}>🔁 Reset</button>
-      
+    <div style={{ maxWidth: '500px', margin: '0 auto' }}>
+      <h1>Task List</h1>
+
+      <TaskCard
+        title = "Learn React Props"
+        description = "Understand how to pass props to components"
+        status = "Completed"
+      />
+      <TaskCard
+        title = "Master UseState Hook"
+        description = "Build a counter to learn state"
+        status = "Completed"
+      />
+      <TaskCard
+        title = "Build TaskCard Component"
+        description = "Reinforce your understanding of components and props"
+        status = "pending"
+      />
     </div>
   );
 }
