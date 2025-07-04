@@ -76,3 +76,5 @@ function App() {
 }
 
 export default App;
+
+// Renamed for Vercel deployment
