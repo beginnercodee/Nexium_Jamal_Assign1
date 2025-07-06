@@ -87,7 +87,9 @@ export function QuoteForm() {
           className="flex flex-col sm:flex-row gap-3"
         >
           <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-5 h-5" />
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="text-white/60 w-5 h-5" />
+            </div>
             <Input
               type="text"
               placeholder="e.g., success"
@@ -96,6 +98,7 @@ export function QuoteForm() {
               className="pl-10 bg-white/30 placeholder-white text-white focus-visible:ring-white"
             />
           </div>
+
           <Button
             type="submit"
             className="bg-white text-indigo-700 hover:bg-indigo-100 w-full sm:w-auto"
