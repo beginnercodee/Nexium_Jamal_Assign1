@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function QuoteForm() {
   const { setTheme, theme } = useTheme();
-    
+
   const [topic, setTopic] = useState("");
   const [quotes, setQuotes] = useState<string[]>([]);
 
@@ -53,7 +53,7 @@ export function QuoteForm() {
         transition={{ duration: 0.6 }}
         className="relative backdrop-blur-md bg-white/10 border border-white/30 rounded-2xl shadow-2xl p-8 w-full max-w-xl"
       >
-         {/* Nexium Logo */}
+        {/* Nexium Logo */}
         <header className="absolute top-6 left-6 text-white text-xl font-bold tracking-wide select-none">
           Nexium<span className="text-yellow-300">Quotes</span>
         </header>
@@ -130,6 +130,15 @@ export function QuoteForm() {
               </motion.p>
             ))}
           </motion.div>
+          {/* Footer */}
+          <footer className="mt-8 text-center text-white/70 text-sm">
+            Built with <span className="text-red-400">❤️</span> using{" "}
+            <span className="font-semibold">Next.js</span>,{" "}
+            <span className="font-semibold">Tailwind CSS</span> &{" "}
+            <span className="font-semibold">ShadCN UI</span> by{" "}
+            <span className="text-yellow-300 font-bold">Jamal Nadeem</span>
+            <div className="mt-2 text-lg">🎮 ⚡ 🎯 💫</div>
+          </footer>
         </AnimatePresence>
       </motion.div>
     </div>
