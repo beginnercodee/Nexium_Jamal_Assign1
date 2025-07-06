@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Moon, Sun, Sparkles, Search, Copy } from "lucide-react";
+import { Moon, Sun, Sparkles, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 export function QuoteForm() {
   const { setTheme, theme } = useTheme();
@@ -227,12 +228,12 @@ export function QuoteForm() {
     toast.success("Random quotes displayed");
   };
 
-  const handleCopy = (quote: string) => {
-    navigator.clipboard.writeText(quote);
-    toast("Quote copied!");
-  };
+  //   const handleCopy = (quote: string) => {
+  //     navigator.clipboard.writeText(quote);
+  //     toast("Quote copied!");
+  //   };
 
-  const topics = Object.keys(allQuotes);
+  //   const topics = Object.keys(allQuotes);
 
   return (
     <div
@@ -314,22 +315,32 @@ export function QuoteForm() {
               placeholder="e.g., success"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
+              disabled={loading}
               className="pl-10 bg-white/30 placeholder-white text-white focus-visible:ring-white"
             />
           </div>
 
           <Button
             type="submit"
+            disabled={loading}
             className="bg-white text-indigo-700 hover:bg-indigo-100 w-full sm:w-auto"
           >
-            Search
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Search"}
           </Button>
+
           <Button
             type="button"
             onClick={handleRandom}
+            disabled={loading}
             className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-black flex items-center gap-1"
           >
-            <Sparkles className="w-4 h-4" /> Random
+            {loading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <>
+                <Sparkles className="w-4 h-4" /> Random
+              </>
+            )}
           </Button>
         </form>
 
