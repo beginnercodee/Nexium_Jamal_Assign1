@@ -327,7 +327,6 @@ export function QuoteForm() {
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Search"}
           </Button>
-
           <Button
             type="button"
             onClick={handleRandom}
