@@ -7,6 +7,16 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun, Sparkles, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const gradients = [
+  "from-purple-700 via-indigo-700 to-blue-700",
+  "from-pink-600 via-red-500 to-yellow-500",
+  "from-green-400 via-emerald-600 to-teal-700",
+  "from-indigo-800 via-purple-700 to-pink-600",
+  "from-cyan-500 via-sky-600 to-blue-700",
+];
+
+const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
+
 export function QuoteForm() {
   const { setTheme, theme } = useTheme();
 
@@ -46,7 +56,11 @@ export function QuoteForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-700 via-indigo-700 to-blue-700 dark:from-neutral-950 dark:to-black transition-colors text-white dark:text-white flex items-center justify-center p-4">
+    <div
+      className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${randomGradient} p-4 text-white relative`}
+    >
+      <div className="absolute inset-0 bg-white/10 dark:bg-black/30 backdrop-blur-md z-0" />
+
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -116,31 +130,56 @@ export function QuoteForm() {
 
         <AnimatePresence>
           <motion.div
-            className="mt-6 space-y-3"
+            className="mt-6 grid gap-4 sm:grid-cols-1 md:grid-cols-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             {quotes.map((quote, idx) => (
-              <motion.p
+              <motion.div
                 key={idx}
-                initial={{ x: -10, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: idx * 0.1 }}
-                className="text-white/90 border-l-4 border-white/30 pl-4 italic"
+                className="group relative p-5 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 text-white shadow-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
               >
-                “{quote}”
-              </motion.p>
+                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 opacity-20 blur-xl scale-150 group-hover:opacity-40 transition-all duration-500 z-0" />
+                <p className="relative z-10 italic leading-relaxed text-balance">
+                  “{quote}”
+                </p>
+              </motion.div>
             ))}
           </motion.div>
-          {/* Footer */}
-          <footer className="mt-8 text-center text-white/70 text-sm">
-            Built with <span className="text-red-400">❤️</span> using{" "}
-            <span className="font-semibold">Next.js</span>,{" "}
-            <span className="font-semibold">Tailwind CSS</span> &{" "}
-            <span className="font-semibold">ShadCN UI</span> by{" "}
-            <span className="text-yellow-300 font-bold">Jamal Nadeem</span>
-            <div className="mt-2 text-lg">🎮 ⚡ 🎯 💫</div>
+          <footer className="mt-8 text-center text-sm text-white/70 dark:text-white/50">
+            Built with ❤️ using{" "}
+            <a
+              href="https://nextjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-white"
+            >
+              Next.js
+            </a>
+            ,{" "}
+            <a
+              href="https://tailwindcss.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-white"
+            >
+              Tailwind CSS
+            </a>{" "}
+            &{" "}
+            <a
+              href="https://ui.shadcn.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-white"
+            >
+              ShadCN UI
+            </a>{" "}
+            by <span className="font-semibold text-white">Jamal Nadeem</span>{" "}
+            🎮⚡🎯💫
           </footer>
         </AnimatePresence>
       </motion.div>
