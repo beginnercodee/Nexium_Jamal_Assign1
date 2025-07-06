@@ -1,5 +1,5 @@
 import { QuoteForm } from "@/components/QuoteForm";
 
-export default function Home() {
+export default function HomePage() {
   return <QuoteForm />;
 }
