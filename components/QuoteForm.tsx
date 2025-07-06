@@ -28,23 +28,31 @@ export function QuoteForm() {
   };
 
   return (
-    <div className="space-y-4 max-w-md mx-auto p-4">
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <Input
-          type="text"
-          placeholder="Enter a topic (e.g., success)"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-        />
-        <Button type="submit">Generate</Button>
-      </form>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-700 via-indigo-700 to-blue-700 p-4">
+      <div className="backdrop-blur-md bg-white/10 border border-white/30 rounded-2xl shadow-2xl p-8 w-full max-w-xl">
+        <h1 className="text-white text-3xl font-bold text-center mb-4">Motivational Quote Generator</h1>
+        <p className="text-white/80 text-center mb-6">Enter a topic like <span className="italic">success</span> or <span className="italic">motivation</span></p>
 
-      <div className="space-y-2">
-        {quotes.map((quote, idx) => (
-          <p key={idx} className="text-muted-foreground border-l-4 pl-4 border-neutral-300">
-            {quote}
-          </p>
-        ))}
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+          <Input
+            type="text"
+            placeholder="e.g., success"
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            className="bg-white/30 placeholder-white text-white focus-visible:ring-white"
+          />
+          <Button type="submit" className="bg-white text-indigo-700 hover:bg-indigo-100 w-full sm:w-auto">
+            Generate
+          </Button>
+        </form>
+
+        <div className="mt-6 space-y-3">
+          {quotes.map((quote, idx) => (
+            <p key={idx} className="text-white/90 border-l-4 border-white/30 pl-4 italic">
+              “{quote}”
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   );
