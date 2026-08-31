@@ -13,7 +13,7 @@
   <strong>An intelligent, interactive, and beautifully designed quote discovery application delivering dynamic inspiration on demand.</strong>
 </p>
 
-[✨ Live Demo](#-live-demo--deployment) • [🚀 Features](#-features) • [🛠️ Tech Stack](#️-tech-stack) • [📂 Project Structure](#-project-structure) • [💻 Getting Started](#-getting-started) • [📖 Note on Commits](#-note-on-commit-history)
+[✨ Live Demo](#-live-demo--deployment) • [🚀 Key Features](#-key-features) • [🏗️ Architecture & Data Flow](#️-architecture--data-flow) • [🛠️ Tech Stack](#️-tech-stack) • [📂 Project Structure](#-project-structure) • [💻 Getting Started](#-getting-started) • [📖 Note on Commits](#-note-on-commit-history)
 
 </div>
 
@@ -27,39 +27,76 @@
 
 ## 🎯 Overview
 
-**Nexium Quotes** is a modern, responsive web application engineered to inspire minds and boost daily productivity. It blends live quote aggregation with a rich offline curated library across 10 distinct categories, wrapped in an ultra-modern glassmorphic user interface with fluid micro-interactions and dark mode support.
+**Nexium Quotes** is a production-ready, highly responsive web application engineered to inspire minds and boost daily productivity. Built on the modern **Next.js 15 (App Router)** framework and **React 19**, it blends live dynamic quote aggregation with an extensive curated offline library across 10 distinct categories.
+
+The application features an ultra-modern **glassmorphic interface**, ambient dynamic background gradients, fluid **Framer Motion** micro-interactions, full light/dark theme adaptability, and instant clipboard sharing with **Sonner** toast notifications.
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-- **🌐 Dynamic Live API Integration**: Fetches real-time quotes via the DummyJSON Quotes API with smart filtering by author and topic keywords.
-- **📚 Curated Multi-Category Library**: Comprehensive offline fallback with 150+ handpicked motivational quotes spanning 10 topics:
-  - 🏆 *Success*, ⚡ *Motivation*, 🎯 *Focus*, 🛡️ *Resilience*, 🧠 *Mindset*, 💡 *Creativity*, 👑 *Leadership*, 💖 *Self-Love*, 🔨 *Hard Work*, and ⏳ *Discipline*.
-- **🎨 Dynamic Glassmorphism UI**: Ambient randomized background gradients, frosted glass cards, and modern typography powered by Google Fonts (`Poppins`).
-- **🌓 Seamless Theme Switching**: Full dark / light mode support powered by `next-themes` with custom theme variables.
-- **🏷️ Interactive Category Pills**: Instant 1-click topic selection and exploration.
-- **🔍 Smart Search & Randomizer**: Full-text query bar with real-time feedback and instant random generation.
-- **📋 1-Click Clipboard Copy**: Easy copy with visual checkmark state transitions and `sonner` toast notifications.
-- **⚡ Skeleton Loaders & Micro-Interactions**: Smooth entrance and stagger animations with `framer-motion`, accompanied by shimmering skeleton cards during network fetches.
-- **🛡️ Resilient Network Architecture**: Includes 6-second timeout abort controllers with automatic fallback to curated datasets.
+### 🌐 Dynamic Real-Time Quote Aggregator
+- **Live API Integration**: Integrates directly with the `DummyJSON Quotes API` for real-time random quote generation and keyword-based filtering.
+- **Smart Category Filtering**: Searches quote content and author names seamlessly across large datasets.
+- **Resilient Fallback Mechanism**: If the live API is slow or unreachable, the system automatically falls back to an offline dataset without disrupting the user experience.
+
+### 📚 Curated Offline Library (150+ Quotes)
+- Handcrafted database spanning **10 core topics**:
+  - 🏆 **Success** • ⚡ **Motivation** • 🎯 **Focus** • 🛡️ **Resilience** • 🧠 **Mindset**
+  - 💡 **Creativity** • 👑 **Leadership** • 💖 **Self-Love** • 🔨 **Hard Work** • ⏳ **Discipline**
+
+### 🎨 Modern Glassmorphic UI & Design System
+- **Randomized Dynamic Gradients**: Ambient background color palettes refreshed on every session.
+- **Frosted Glass Cards**: Backdrop-blur filters with subtle border highlights and radial glow effects.
+- **Refined Typography**: Clean, modern sans-serif typography via Google Fonts (`Poppins`).
+- **Dark / Light Mode**: Integrated with `next-themes` and Tailwind CSS v4 color tokens (OKLCH color space).
+
+### ⚡ Interactive UX & Micro-Interactions
+- **Category Pills**: 1-click exploration for quick topic switching with active state feedback.
+- **Instant Clipboard Copy**: 1-click copy action with animated checkmark state and rich toast alerts.
+- **Shimmering Skeleton Loaders**: Polished skeleton loading state prevents layout shifts during network fetches.
+- **Staggered Animations**: Fluid entrance transitions and hover scale feedback powered by `framer-motion`.
+
+---
+
+## 🏗️ Architecture & Data Flow
+
+```mermaid
+flowchart TD
+    A[User Interaction] -->|Search / Pill / Random| B[fetchDynamicQuotes Handler]
+    B --> C{AbortController & 6s Timeout}
+    
+    C -->|Fetch Request| D[DummyJSON Quotes API]
+    
+    D -->|Success: Results Found| E[Map & Shuffle Top 3 Quotes]
+    D -->|Success: No Direct Match| F[Curated Local Topic Library]
+    D -->|API Error / Timeout| G[Curated Local Fallback Library]
+    
+    E --> H[React State Update]
+    F --> H
+    G --> H
+    
+    H --> I[Framer Motion Render & Sonner Toast]
+```
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology | Description |
+| Layer | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Framework** | [Next.js 15](https://nextjs.org/) | App Router, Server/Client components, optimized builds |
-| **UI Library** | [React 19](https://react.dev/) | Core UI rendering engine |
-| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) + [tw-animate-css](https://www.npmjs.com/package/tw-animate-css) | Modern utility-first styling system |
-| **Typography** | [Google Fonts (`Poppins`)](https://fonts.google.com/specimen/Poppins) | Polished, modern sans-serif typography |
-| **Component Kit** | [ShadCN UI](https://ui.shadcn.dev/) + [Radix UI](https://www.radix-ui.com/) | Accessible, composable primitive components |
-| **Animations** | [Framer Motion](https://www.framer.com/motion/) | Smooth UI transitions, scale feedback, card reveals |
-| **Icons** | [Lucide React](https://lucide.dev/) | Clean and modern icon set |
-| **Notifications** | [Sonner](https://sonner.emilkowal.ski/) | Sleek toast alert system |
-| **Language** | [TypeScript 5](https://www.typescriptlang.org/) | End-to-end type safety |
-| **Deployment** | [Vercel](https://vercel.com/) | Continuous integration and edge delivery |
+| **Framework** | [Next.js 15](https://nextjs.org/) | App Router architecture, optimized production builds |
+| **Library** | [React 19](https://react.dev/) | Component architecture, state hooks, modern transitions |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | Next-generation utility-first styling with OKLCH theme tokens |
+| **CSS Animations** | [tw-animate-css](https://www.npmjs.com/package/tw-animate-css) | Modern keyframe utilities |
+| **Typography** | [Google Fonts (`Poppins`)](https://fonts.google.com/specimen/Poppins) | High-legibility modern sans-serif typeface |
+| **Components** | [ShadCN UI](https://ui.shadcn.dev/) + [Radix UI](https://www.radix-ui.com/) | Accessible, headless UI primitives (`Button`, `Input`, `Slot`) |
+| **Motion** | [Framer Motion 12](https://www.framer.com/motion/) | Card stagger animations, hover scaling, smooth reveals |
+| **Icons** | [Lucide React](https://lucide.dev/) | Clean, scalable vector icon library |
+| **Notifications** | [Sonner](https://sonner.emilkowal.ski/) | Rich, responsive toast notification system |
+| **Theming** | [next-themes](https://github.com/pacocoursey/next-themes) | System-aware dark and light mode provider |
+| **Language** | [TypeScript 5](https://www.typescriptlang.org/) | Strict type safety and robust developer experience |
+| **Hosting** | [Vercel](https://vercel.com/) | Zero-config continuous deployment and edge caching |
 
 ---
 
@@ -68,26 +105,26 @@
 ```text
 Nexium_Jamal_Assign1/
 ├── app/
-│   ├── favicon.ico          # Application favicon
-│   ├── globals.css          # Tailwind CSS v4 design tokens & theme variables
-│   ├── layout.tsx           # Root layout with ThemeProvider & Sonner Toaster
-│   └── page.tsx             # Home view rendering QuoteForm
+│   ├── favicon.ico              # Web application favicon
+│   ├── globals.css              # Tailwind CSS v4 design tokens & OKLCH variables
+│   ├── layout.tsx               # Root HTML layout, Font loader, ThemeProvider & Toast container
+│   └── page.tsx                 # Main entry page rendering the QuoteForm application
 ├── components/
-│   ├── ui/                  # Reusable ShadCN / Radix primitive components
-│   │   ├── button.tsx       # Accessible button with CVA variants
-│   │   └── input.tsx        # Styled input field component
-│   ├── LoginForm.tsx        # Modular auth / login component template
-│   ├── QuoteForm.tsx        # Core interactive quote generator engine
-│   └── theme-provider.tsx   # NextThemes provider wrapper
+│   ├── ui/                      # Reusable UI component primitives
+│   │   ├── button.tsx           # Radix-slot backed Button with CVA variants
+│   │   └── input.tsx            # Styled form input field
+│   ├── LoginForm.tsx            # Modular login/auth component template
+│   ├── QuoteForm.tsx            # Core interactive quote generator engine & local dataset
+│   └── theme-provider.tsx       # NextThemes wrapper for hydration-safe theming
 ├── lib/
-│   └── utils.ts             # Tailwind class merge helper (clsx + twMerge)
-├── public/                  # Static assets
-├── components.json          # ShadCN configuration
-├── next.config.ts           # Next.js configuration
-├── package.json             # Project dependencies and npm scripts
-├── postcss.config.mjs       # PostCSS configuration
-├── tsconfig.json            # TypeScript configuration
-└── README.md                # Project documentation
+│   └── utils.ts                 # Class merger utility (clsx + tailwind-merge)
+├── public/                      # Static assets & vectors
+├── components.json              # ShadCN component generator configuration
+├── next.config.ts               # Next.js compiler & runtime configuration
+├── package.json                 # Project dependencies, scripts & metadata
+├── postcss.config.mjs           # PostCSS configuration for Tailwind v4
+├── tsconfig.json                # Strict TypeScript configuration
+└── README.md                    # Project documentation
 ```
 
 ---
@@ -96,51 +133,52 @@ Nexium_Jamal_Assign1/
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (version `18.18.0` or later recommended)
+Make sure you have the following installed on your machine:
+- [Node.js](https://nodejs.org/) (`v18.18.0` or higher recommended)
 - [npm](https://www.npmjs.com/) or [pnpm](https://pnpm.io/)
 
-### Installation
+### Installation Steps
 
-1. **Clone the Repository:**
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/beginnercodee/Nexium_Jamal_Assign1.git
    cd Nexium_Jamal_Assign1
    ```
 
-2. **Install Dependencies:**
+2. **Install project dependencies:**
    ```bash
    npm install
    # or
    pnpm install
    ```
 
-3. **Run the Development Server:**
+3. **Start the local development server:**
    ```bash
    npm run dev
    # or
    pnpm dev
    ```
 
-4. **Open in Browser:**
-   Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+4. **View in your browser:**
+   Open [http://localhost:3000](http://localhost:3000) in your favorite browser.
 
 ---
 
 ## 📜 Available Scripts
 
-| Command | Action |
-| :--- | :--- |
-| `npm run dev` | Starts the Next.js development server at `localhost:3000` |
-| `npm run build` | Builds the optimized production bundle |
-| `npm run start` | Runs the built production server locally |
-| `npm run lint` | Runs ESLint checks across the codebase |
+| Script | Command | Description |
+| :--- | :--- | :--- |
+| **Development** | `npm run dev` | Starts local Next.js dev server with Fast Refresh |
+| **Build** | `npm run build` | Compiles and optimizes application for production |
+| **Start** | `npm run start` | Boots production server locally after building |
+| **Lint** | `npm run lint` | Runs Next.js ESLint rules for code quality |
 
 ---
 
 ## 🌐 Live Demo & Deployment
 
-The application is configured for continuous deployment on **Vercel**:
-- Every push to the `main` branch automatically triggers a production build and deployment.
+This project is configured with continuous deployment on **Vercel**:
+- Every push to the `main` branch automatically initiates an automated production build.
 - **GitHub Repository**: [beginnercodee/Nexium_Jamal_Assign1](https://github.com/beginnercodee/Nexium_Jamal_Assign1)
 
 ---
@@ -155,4 +193,4 @@ The application is configured for continuous deployment on **Vercel**:
 
 ## 📄 License
 
-This project is created for educational and assignment purposes under the [MIT License](LICENSE).
+This project is distributed under the [MIT License](LICENSE).
